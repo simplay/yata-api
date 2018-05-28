@@ -33,3 +33,4 @@ test:
 production:
   <<: *default
   database: yata-api_production
+  url: <%= ENV.fetch("DATABASE_URL") %>
