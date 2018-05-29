@@ -28,7 +28,22 @@ class TodosController < ApplicationController
     if todo.destroy
       render json: Todo.all, status: 200
     else
-      render json: {}, staus: 404
+      render json: {}, staus: 400
     end
+  end
+
+  def update
+    todo = Todo.find(params[:id])
+    if todo.update(todo_params)
+      render json: Todo.all, status: 200
+    else
+      render json: {}, staus: 400
+    end
+  end
+
+  private
+
+  def todo_params
+    params.require(:todo).permit(%i(title description))
   end
 end
