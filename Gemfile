@@ -19,6 +19,9 @@ gem 'bcrypt', '~> 3.1.7'
 # makes encoding and decoding of HMACSHA256 tokens available in the Rails application
 gem 'jwt'
 
+# build and use Service Objects
+gem 'simple_command'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
