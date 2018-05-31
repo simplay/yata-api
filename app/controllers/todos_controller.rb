@@ -1,7 +1,6 @@
 class TodosController < ApplicationController
   def index
-    todos = Todo.all
-    render json: todos, status: 200
+    render json: sorted_todos, status: 200
   end
 
   def show
@@ -17,7 +16,7 @@ class TodosController < ApplicationController
     todo_params = params[:todo]
     todo = Todo.new(title: todo_params["title"])
     if todo.save!
-      render json: Todo.all, status: 200
+      render json: sorted_todos, status: 200
     else
       render json: {}, staus: 404
     end
@@ -26,7 +25,7 @@ class TodosController < ApplicationController
   def destroy
     todo = Todo.find(params[:id])
     if todo.destroy
-      render json: Todo.all, status: 200
+      render json: sorted_todos, status: 200
     else
       render json: {}, staus: 400
     end
@@ -35,13 +34,17 @@ class TodosController < ApplicationController
   def update
     todo = Todo.find(params[:id])
     if todo.update(todo_params)
-      render json: Todo.all, status: 200
+      render json: sorted_todos, status: 200
     else
       render json: {}, staus: 400
     end
   end
 
   private
+
+  def sorted_todos
+    Todo.all.sort_by(&:created_at)
+  end
 
   def todo_params
     params.require(:todo).permit(%i(title description))
