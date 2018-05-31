@@ -18,6 +18,28 @@ postgres=# \password YOUR_USER_NAME
 
 5. Generate a app secret
 
+## Test authentication
+
+Run the server locally and create a user
+
+```
+User.create!(email: 'example@mail.com' , password: '123123123' , password_confirmation: '123123123')
+```
+
+Get the token:
+
+```
+$ curl -H "Content-Type: application/json" -X POST -d '{"email":"example@mail.com","password":"123123123"}' http://localhost:3000/authenticate
+{"auth_token":"foobar"}
+
+```
+
+Perform a request with authorization:
+
+```
+curl -H "Authorization: foobar" http://localhost:3000/todos
+```
+
 ## Troubleshooting
 
 + Restart the postgres database service: `sudo service postgresql restart`
