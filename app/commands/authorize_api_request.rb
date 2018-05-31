@@ -1,3 +1,5 @@
+require_relative '../../lib/json_web_token.rb'
+
 class AuthorizeApiRequest
   prepend SimpleCommand
 
