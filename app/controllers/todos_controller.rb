@@ -3,6 +3,14 @@ class TodosController < ApplicationController
     render json: sorted_todos, status: 200
   end
 
+  def incomplete
+    render json: sorted_todos.select(&:incomplete?), status: 200
+  end
+
+  def completed
+    render json: sorted_todos.select(&:done?), status: 200
+  end
+
   def show
     todo = current_user.todos.find(params[:id])
     if todo
