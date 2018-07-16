@@ -22,7 +22,7 @@ class TodosController < ApplicationController
 
   def create
     if current_user.todos.create!(todo_params)
-      render json: sorted_todos, status: 200
+      render json: filtered_todos, status: 200
     else
       render json: {}, staus: 404
     end
@@ -40,13 +40,25 @@ class TodosController < ApplicationController
   def update
     todo = current_user.todos.find(params[:id])
     if todo.update(todo_params)
-      render json: sorted_todos, status: 200
+
+      render json: filtered_todos, status: 200
     else
       render json: {}, staus: 400
     end
   end
 
   private
+
+  def filtered_todos
+    case params[:filter]
+    when 'completed'
+      sorted_todos.select(&:done?)
+    when 'incomplete'
+      sorted_todos.select(&:incomplete?)
+    else
+      sorted_todos
+    end
+  end
 
   def sorted_todos
     current_user.todos.sort_by(&:created_at)
