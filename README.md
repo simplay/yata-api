@@ -1,5 +1,9 @@
 # Yata-API
 
+## Prerequisites
+
+`libpq-dev`
+
 ## Installation
 
 1 . Clone this repository and run `bundle`
