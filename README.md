@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-`libpq-dev`
++  `libpq-dev`
 
 ## Installation
 
